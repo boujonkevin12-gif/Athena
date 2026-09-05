@@ -24,6 +24,12 @@ prisma/*.db
 dev-server.log
 npm-debug.log*
 
+# herramienta de editor (skills locales)
+.claude/
+.cursor/
+.devin/
+.agents/
+
 # misc
 .DS_Store
 Thumbs.db
