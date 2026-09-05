@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  image       String?
+  active      Boolean   @default(true)
+  order       Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  products    Product[]
+}
+
+model Product {
+  id             String   @id @default(cuid())
+  name           String
+  slug           String   @unique
+  description    String?
+  price          Float
+  previousPrice  Float?
+  categoryId     String
+  category       Category @relation(fields: [categoryId], references: [id])
+  stock          Int      @default(0)
+  mainImage      String?
+  images         String   @default("[]")
+  featured       Boolean  @default(false)
+  isNew          Boolean  @default(false)
+  onSale         Boolean  @default(false)
+  active         Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Settings {
+  id             String @id @default("singleton")
+  businessName   String @default("Mi Tienda")
+  logo           String?
+  whatsapp       String?
+  instagram      String?
+  facebook       String?
+  description    String?
+  heroTitle      String?
+  heroSubtitle   String?
+  heroDescription String?
+  heroImage      String?
+  updatedAt      DateTime @updatedAt
+}
