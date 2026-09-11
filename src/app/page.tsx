@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Header from "@/components/catalog/Header";
 import Footer from "@/components/catalog/Footer";
 import Hero from "@/components/catalog/Hero";
@@ -7,6 +8,14 @@ import FeaturedProducts from "@/components/catalog/FeaturedProducts";
 import CategoryGrid from "@/components/catalog/CategoryGrid";
 
 export default function Home() {
+  const [whatsapp, setWhatsapp] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch("/api/settings")
+      .then((r) => r.json())
+      .then((data) => setWhatsapp(data.whatsapp || null));
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col bg-[#FDFBF7]">
       <Header />
@@ -27,7 +36,7 @@ export default function Home() {
               Escribinos por WhatsApp y te asesoramos con gusto
             </p>
             <a
-              href="https://wa.me/5491112345678?text=Hola,%20quer%C3%ADa%20hacer%20una%20consulta"
+              href={`https://wa.me/${whatsapp || "5491112345678"}?text=${encodeURIComponent("Hola, quería hacer una consulta")}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 bg-[#1a1a1a] text-white px-8 py-3.5 text-[13px] font-medium uppercase tracking-[0.08em] hover:bg-[#2a2a2a] transition-colors duration-300"

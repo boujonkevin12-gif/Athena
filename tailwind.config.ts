@@ -33,6 +33,16 @@ const config: Config = {
           400: "#BDAB97",
           500: "#AD9780",
         },
+        primary: {
+          50: "#FBF5F1",
+          100: "#F0DED5",
+          200: "#E5C7B8",
+          300: "#D9AE9A",
+          400: "#CD957C",
+          500: "#C07D5E",
+          600: "#A9653F",
+          700: "#8A5334",
+        },
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
